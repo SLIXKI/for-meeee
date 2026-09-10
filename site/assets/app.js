@@ -69,7 +69,7 @@ document.querySelectorAll('[data-extrude]').forEach(el => {
 
 /* ═══ WEBGL · LIQUID GOLD SHADER ═══ */
 const glCanvas = document.getElementById('gl');
-let glOK = false, glDraw = null, glCovered = false, glTick = 0;
+let glOK = false, glDraw = null, glCovered = false, lastGLDraw = 0;
 let glActive = performance.now(), glShown = false;
 let glMood = 0, glMoodTarget = 0;
 const GL_MOODS = { top:0, kit:.22, how:.4, ledger:.55, download:.45, architect:1 };
@@ -173,9 +173,9 @@ addEventListener('scroll', () => { glActive = performance.now(); }, { passive:tr
   try { build(); } catch(e){ document.documentElement.classList.add('no-gl'); return; }
 
   function size(){
-    // Pixel budget: on a 4K screen the fixed 0.62 scale is 5M fragments of FBM.
-    // Cap the backing store at ~640k pixels — visually identical, far cheaper.
-    SCALE = Math.min(0.62, Math.sqrt(640000 / Math.max(innerWidth*innerHeight, 1)));
+    // Pixel budget: the silk is smooth gradients under upscale, so backing
+    // resolution barely matters — cap it at ~420k pixels and .5 scale.
+    SCALE = Math.min(0.5, Math.sqrt(420000 / Math.max(innerWidth*innerHeight, 1)));
     const w = Math.max(1, Math.round(innerWidth*SCALE)), h = Math.max(1, Math.round(innerHeight*SCALE));
     if (glCanvas.width !== w || glCanvas.height !== h){
       glCanvas.width = w; glCanvas.height = h;
@@ -320,12 +320,16 @@ function loop(now){
     }
   }
 
-  // Idle stride: state advances every frame (no jumps), but pixels redraw every
-  // 4th frame after 4s idle — the silk barely moves, so the GPU rests ~75%.
+  // Frame governor: the silk drifts far too slowly for 60fps to be
+  // distinguishable, so it never renders above 30fps; after 5s without input
+  // it eases to 12fps — film-grain territory, the boil just gets cinematic.
+  // Same pixels, a fraction of the GPU.
   if (glOK && !glCovered){
-    glTick++;
-    if (performance.now() - glActive <= 4000 || glTick % 4 === 0)
+    const glBudget = now - glActive <= 5000 ? 33.4 : 83.4;
+    if (now - lastGLDraw >= glBudget){
+      lastGLDraw = now;
       glDraw(t, mouseX, mouseY, (scrollY/Math.max(1,document.body.scrollHeight-innerHeight)));
+    }
   }
   if (mouseDirty){
     mouseDirty = false;
@@ -338,7 +342,7 @@ function loop(now){
   if (glowEl && !reduce && !lowPower){
     const ga = Math.abs(vel);
     const go = ga > .4 ? Math.min(.5, ga*.022).toFixed(3) : '0';
-    if (go !== lastGlow){ lastGlow = go; glowEl.style.opacity = go; }
+    if (go !== lastGlow){ lastGlow = go; glowEl.style.opacity = go; glowEl.style.visibility = go === '0' ? 'hidden' : ''; }
   }
   // Scroll velocity leans the kinetic ring — the "alive" feeling.
   if (ringBand && !reduce){
@@ -399,13 +403,16 @@ addEventListener('pointermove', e => {
     });
   }
 }, {passive:true});
-let dustPainted = false;
+let dustPainted = false, dustHidden = false;
 function drawDust(){
   if (!motes.length){
     // Clear once on the way down, then stop touching the canvas.
     if (dustPainted) { dctx.clearRect(0,0,innerWidth,innerHeight); dustPainted = false; }
+    // A hidden canvas skips compositing entirely — one less fullscreen blend.
+    if (!dustHidden){ dustHidden = true; dustC.style.visibility = 'hidden'; }
     return;
   }
+  if (dustHidden){ dustHidden = false; dustC.style.visibility = ''; }
   dustPainted = true;
   dctx.clearRect(0,0,innerWidth,innerHeight);
   motes = motes.filter(m => m.life > 0);
@@ -1093,6 +1100,7 @@ function sizeC(){
   ctx.setTransform(d,0,0,d,0,0);
 }
 sizeC(); addEventListener('resize', sizeC);
+cvs.style.visibility = 'hidden'; // shown by burst(); hidden skips compositing
 const GOLD = ['#C9A86A','#FFF3D6','#EADFC6','#F5F2EB','#A98A4F','#ffffff'];
 function burst(x, y, n, palette){
   if (reduce || document.hidden) return;
@@ -1106,6 +1114,7 @@ function burst(x, y, n, palette){
       rot: Math.random()*6.28, vr: (Math.random()-.5)*.5, ph: Math.random()*6.28,
       col: pal[(Math.random()*pal.length)|0], life: 1, dec: .005+Math.random()*.007 });
   }
+  cvs.style.visibility = '';
   if (!raf) raf = requestAnimationFrame(tickC);
 }
 function tickC(){
@@ -1124,7 +1133,8 @@ function tickC(){
     ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
     ctx.restore();
   }
-  raf = parts.length ? requestAnimationFrame(tickC) : (ctx.clearRect(0,0,innerWidth,innerHeight), null);
+  if (!parts.length){ ctx.clearRect(0,0,innerWidth,innerHeight); raf = null; cvs.style.visibility = 'hidden'; return; }
+  raf = requestAnimationFrame(tickC);
 }
 
 /* ═══ CTA · RIPPLE + TOAST ═══ */

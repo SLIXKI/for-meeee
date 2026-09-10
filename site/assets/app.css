@@ -413,12 +413,12 @@ button.lid{display:block;width:100%;text-align:left;font:inherit;color:inherit}
 .stamp-zone.done .stamp-btn{display:none}
 
 /* ══════════ FINAL — RING CORRIDOR ══════════ */
-.final{position:relative;padding:120px 0 44px;display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center;margin-top:26px;border-top:1px solid rgba(255,255,255,.06);
-  background:radial-gradient(940px 420px at 50% -60px,rgba(201,168,106,.14),transparent 62%),radial-gradient(760px 560px at 88% 92%,rgba(201,168,106,.11),transparent 62%),radial-gradient(640px 480px at 8% 78%,rgba(124,58,237,.07),transparent 62%)}
+.final{position:relative;padding:120px 0 44px;display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center;margin-top:26px;border-top:1px solid rgba(255,255,255,.06)}
 @media(max-width:1020px){.final{grid-template-columns:1fr}}
-.corridor{position:absolute;top:0;bottom:0;left:50%;width:100vw;margin-left:-50vw;z-index:0;overflow:hidden;pointer-events:none;perspective:720px}
-.corridor::after{content:"";position:absolute;inset:0;z-index:5;pointer-events:none;
-  background:radial-gradient(72% 82% at 50% 50%,transparent 66%,rgba(5,5,7,.26) 88%,rgba(5,5,7,.38) 100%)}
+/* NOTE: keep inset:0 — .final>div (higher specificity) overrides position to
+   relative on this box, so full-bleed/offset geometry misplaces the tunnel. */
+.corridor{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;perspective:720px;
+  mask-image:radial-gradient(62% 72% at 50% 50%,#000,transparent);-webkit-mask-image:radial-gradient(62% 72% at 50% 50%,#000,transparent)}
 .corr-ring{position:absolute;left:50%;top:50%;border-radius:50%;border:1px solid rgba(201,168,106,.42);animation:fly 7.5s linear infinite;opacity:0}
 @keyframes fly{0%{transform:translateZ(-2800px) rotate(0deg);opacity:0}14%{opacity:.85}80%{opacity:.22}100%{transform:translateZ(440px) rotate(96deg);opacity:0}}
 .final>div{position:relative;z-index:2}
@@ -796,7 +796,7 @@ html{scroll-behavior:smooth}
 @keyframes drift-b{to{transform:translate3d(-140px,-110px,0) scale(.88)}}
 
 /* ── scroll glow: velocity aura on its own layer, zero content repaint ── */
-.scroll-glow{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:0;contain:strict;
+.scroll-glow{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:0;visibility:hidden;contain:strict;
   background:radial-gradient(900px 320px at 50% -60px,rgba(201,168,106,.20),transparent 70%),radial-gradient(900px 340px at 50% calc(100% + 60px),rgba(201,168,106,.14),transparent 70%)}
 
 /* ── hero entrance: exhibit tag cascade once .ready lands ── */
