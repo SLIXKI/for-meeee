@@ -8,17 +8,39 @@
 
 (() => {
   const nav = document.getElementById('nav');
-  const root = document.documentElement;
 
   /* nav: solid once scrolled, same 12px threshold as the landing page */
   if (nav) {
+    const prog = document.querySelector('.prog');
     const onScroll = () => {
       nav.classList.toggle('scrolled', scrollY > 12);
       const h = document.body.scrollHeight - innerHeight;
-      root.style.setProperty('--sp', (h > 0 ? scrollY / h : 0).toFixed(4));
+      // Scoped to the bar itself: on :root the write invalidated style
+      // across the whole document on every scroll frame.
+      if (prog) prog.style.setProperty('--sp', (h > 0 ? scrollY / h : 0).toFixed(4));
     };
     addEventListener('scroll', onScroll, { passive: true });
     onScroll();
+  }
+
+  /* mobile menu — same behavior as the landing page, minus the vault */
+  const menuBtn = document.getElementById('menuBtn');
+  const mmenu = document.getElementById('mmenu');
+  if (menuBtn && mmenu) {
+    const setMenu = (open) => {
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      mmenu.classList.toggle('open', open);
+      mmenu.setAttribute('aria-hidden', String(!open));
+      document.body.classList.toggle('locked', open);
+      if (open) { const f = mmenu.querySelector('a'); if (f) setTimeout(() => f.focus({ preventScroll: true }), 120); }
+    };
+    menuBtn.addEventListener('click', () => setMenu(!mmenu.classList.contains('open')));
+    mmenu.addEventListener('click', (e) => { if (e.target.closest && e.target.closest('a')) setMenu(false); });
+    addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mmenu.classList.contains('open')) { setMenu(false); menuBtn.focus({ preventScroll: true }); }
+    });
+    addEventListener('resize', () => { if (innerWidth > 1000 && mmenu.classList.contains('open')) setMenu(false); }, { passive: true });
   }
 
   /* the landing template's [data-cta] buttons only drew a ripple; make them go */

@@ -40,8 +40,10 @@
 <link rel="stylesheet" href="{{CSS_HREF}}">
 </head>
 <body class="{{BODYCLASS}}">
+<a class="skip-link" href="#top">Skip to content</a>
+<noscript><style>.rv{opacity:1!important;transform:none!important;filter:none!important}.pre,.cur,.cur-ring,#gl,#dust,#confetti{display:none!important}</style></noscript>
 {{THEATRICS}}
-<nav class="nav" id="nav">
+<nav class="nav" id="nav" aria-label="Main navigation">
   <div class="wrap nav-in">
     <a href="{{HOME}}#top" class="nav-left" data-mag>
       <span class="mono-mark"><img src="assets/img/asheo-mark.webp" width="37" height="37" alt="Asheo" decoding="async"></span>
@@ -52,17 +54,27 @@
       <a href="{{HOME}}#kit">The Kit</a><a href="{{HOME}}#how">Method</a><a href="/docs">Docs</a><a href="/tutorials">Tutorials</a><a href="/premium">Premium</a>
     </div>
     <div class="nav-right">
-      <button class="icon-btn" id="sound" aria-label="Toggle sound" title="Sound">
+      <button class="icon-btn" id="sound" aria-label="Toggle sound" aria-pressed="false" title="Sound">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 9v6h3l5 4V5L7 9H4z"/><path d="M17 9a5 5 0 0 1 0 6"/></svg>
       </button>
       <a href="{{HOME}}#download" class="nav-cta" data-mag>Acquire
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
       </a>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mmenu" aria-label="Open menu"><span></span></button>
     </div>
   </div>
 </nav>
+<div class="mmenu" id="mmenu" aria-hidden="true">
+  <a href="{{HOME}}#kit"><small>I</small>The Kit</a>
+  <a href="{{HOME}}#how"><small>II</small>Method</a>
+  <a href="/docs"><small>III</small>Docs</a>
+  <a href="/tutorials"><small>IV</small>Tutorials</a>
+  <a href="/premium"><small>V</small>Premium</a>
+  <a href="{{HOME}}#download"><small>VI</small>Acquire</a>
+  <div class="mmenu-foot">ASHEO · Edition 01 · Where to?</div>
+</div>
 
-<div class="shell" id="top"><div class="skewer" id="skewer">
+<main class="shell" id="top"><div class="skewer" id="skewer">
 {{BODY}}
   <div class="wrap">
     <footer>
@@ -83,13 +95,13 @@
       </div>
       <div class="footer-bottom">
         <span>© 2026 ASHEO. All rights reserved.</span>
-        <span class="egg">Type <b>ASH</b> anywhere</span>
+        <span class="egg">Type <b>ASH</b> anywhere · press <b>/</b> to jump</span>
         <span>Built OG. No tracking. No bloat.</span>
       </div>
       <div class="wm-stage"><div class="wm" id="wm"><span class="wm-face">ASHEO</span></div></div>
     </footer>
   </div>
-</div></div>
+</div></main>
 
 {{DITHER}}
 {{SCRIPTS}}

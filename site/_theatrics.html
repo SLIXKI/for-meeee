@@ -29,22 +29,35 @@
   <img class="curtain-mark" src="assets/img/asheo-mark.webp" width="54" height="54" alt="" decoding="async">
 </div>
 
-<div class="cur" id="cur"></div><div class="cur-ring" id="curRing"></div>
+<div class="chapter-card" id="chapterCard" aria-hidden="true">
+  <div class="cc-bar cc-top"></div>
+  <div class="cc-mid"><span class="cc-num">I</span><span class="cc-rule"></span><span class="cc-col"><span class="cc-name">Overture</span><span class="cc-sub">Exhibit I</span></span></div>
+  <div class="cc-bar cc-bot"></div>
+</div>
 
-<canvas id="gl"></canvas>
-<canvas id="dust"></canvas>
-<div class="plumb"></div>
-<div class="spot"></div>
-<div class="vignette"></div>
-<div class="noise"></div>
-<div class="scan"></div>
-<div class="prog"></div>
-<canvas id="confetti"></canvas>
-<div id="toast" class="toast"><i></i> <span id="toastTxt">Added to Chrome — welcome to ASHEO.</span></div>
+<div class="cur" id="cur" aria-hidden="true"></div><div class="cur-ring" id="curRing" aria-hidden="true"></div>
+
+<canvas id="gl" aria-hidden="true"></canvas>
+<canvas id="dust" aria-hidden="true"></canvas>
+<div class="plumb" aria-hidden="true"></div>
+<div class="spot" id="spot" aria-hidden="true"></div>
+<div class="aura aura-a" aria-hidden="true"></div>
+<div class="aura aura-b" aria-hidden="true"></div>
+<div class="scroll-glow" id="scrollGlow" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="noise" aria-hidden="true"></div>
+<div class="scan" aria-hidden="true"></div>
+<div class="prog" aria-hidden="true"></div>
+<canvas id="confetti" aria-hidden="true"></canvas>
+<div id="toast" class="toast" role="status" aria-live="polite"><i></i> <span id="toastTxt">Added to Chrome — welcome to ASHEO.</span></div>
 
 <div class="plate">Numbered edition<b id="plateSerial">——</b></div>
+<button id="toTop" class="to-top" aria-label="Back to top">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
 
 <nav class="rail" aria-label="Chapters">
+  <span class="rail-spine" aria-hidden="true"><i id="railSpineFill"></i></span>
   <a href="#top" data-rail="top"><i></i>I · OVERTURE</a>
   <a href="#kit" data-rail="kit"><i></i>II · THE KIT</a>
   <a href="#how" data-rail="how"><i></i>III · METHOD</a>
@@ -52,3 +65,21 @@
   <a href="#download" data-rail="download"><i></i>V · ACCESS</a>
   <a href="#architect" data-rail="architect"><i></i>VI · ARCHITECT</a>
 </nav>
+
+<div class="palette-backdrop" id="palette" hidden>
+  <div class="palette" role="dialog" aria-modal="true" aria-label="Quick navigation">
+    <input id="paletteInput" type="text" placeholder="Jump to a chapter, or try “sound”…" aria-label="Search chapters and actions" autocomplete="off" spellcheck="false">
+    <div class="palette-list" id="paletteList" role="listbox" aria-label="Results">
+      <button role="option" data-goto="top"><span>Overture — back to the top</span><kbd>1</kbd></button>
+      <button role="option" data-goto="kit"><span>The Kit — four pillars</span><kbd>2</kbd></button>
+      <button role="option" data-goto="how"><span>The Method — twenty seconds</span><kbd>3</kbd></button>
+      <button role="option" data-goto="ledger"><span>The Ledger — on the record</span><kbd>4</kbd></button>
+      <button role="option" data-goto="download"><span>Access — get ASHEO</span><kbd>5</kbd></button>
+      <button role="option" data-goto="architect"><span>The Architect — meet ASH</span><kbd>6</kbd></button>
+      <button role="option" data-act="sound"><span>Toggle sound — glass &amp; brass</span><kbd>S</kbd></button>
+      <button role="option" data-act="seal"><span>Seal your copy in wax</span><kbd>W</kbd></button>
+      <button role="option" data-act="collector"><span>Collector mode — gold rain</span><kbd>A</kbd></button>
+    </div>
+    <div class="palette-hint"><span>↑↓ move</span><span>↵ open</span><span>esc close</span></div>
+  </div>
+</div>

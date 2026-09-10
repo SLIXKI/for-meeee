@@ -1,0 +1,15 @@
+{
+  "name": "asheo-site",
+  "private": true,
+  "version": "1.0.0",
+  "description": "ASHEO Edition 01 static site — builds site/ templates into a deployable dist/",
+  "scripts": {
+    "build": "node site/build.mjs dist"
+  },
+  "dependencies": {
+    "marked": "^18.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
