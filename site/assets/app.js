@@ -369,6 +369,7 @@ function loop(now){
 
 /* ═══ CURSOR + GOLD DUST TRAIL ═══ */
 const cur = document.getElementById('cur'), curRing = document.getElementById('curRing');
+const h1El = document.getElementById('h1'), wmEl = document.getElementById('wm');
 const spotEl = document.getElementById('spot');
 let mouseX = innerWidth/2, mouseY = innerHeight/2, rx = mouseX, ry = mouseY, mvx = 0, mvy = 0;
 const dustC = document.getElementById('dust'), dctx = dustC.getContext('2d');
@@ -388,10 +389,8 @@ addEventListener('pointermove', e => {
   // loop flushes the spotlight transform once instead.
   mouseDirty = true;
   const nx = mouseX/innerWidth - .5, ny = mouseY/innerHeight - .5;
-  const h1 = document.getElementById('h1');
-  if (h1 && fine) h1.style.transform = `rotateY(${nx*10}deg) rotateX(${-ny*7}deg) translateZ(34px)`;
-  const wm = document.getElementById('wm');
-  if (wm && fine) wm.style.transform = `rotateY(${nx*14}deg) rotateX(${-ny*7}deg)`;
+  if (h1El && fine) h1El.style.transform = `rotateY(${nx*10}deg) rotateX(${-ny*7}deg) translateZ(34px)`;
+  if (wmEl && fine) wmEl.style.transform = `rotateY(${nx*14}deg) rotateX(${-ny*7}deg)`;
   if (fine && !reduce && Math.hypot(mvx,mvy) > 6 && motes.length < 160){
     for (let i=0;i<2;i++) motes.push({
       x: mouseX + (Math.random()-.5)*10, y: mouseY + (Math.random()-.5)*10,
@@ -465,6 +464,7 @@ if (fine && !reduce) document.querySelectorAll('[data-mag]').forEach(el => {
 /* ═══ PRELOADER · TUMBLERS ═══ */
 const pre = document.getElementById('pre'), preNum = document.getElementById('preNum');
 const preState = document.getElementById('preState'), tumblers = document.getElementById('tumblers');
+const dialRing = document.getElementById('dialRing');
 const CODE = 'ASHEO01';
 [...CODE].forEach(() => {
   const w = document.createElement('span'); w.className = 'tum';
@@ -498,7 +498,7 @@ else {
     root.style.setProperty('--pre', (p/100).toFixed(3));
     const want = Math.floor(p/100*CODE.length);
     while (locked < want){ tumEls[locked].textContent = CODE[locked]; locked++; }
-    document.getElementById('dialRing').style.transform = `rotate(${p*6.2}deg)`;
+    if (dialRing) dialRing.style.transform = `rotate(${p*6.2}deg)`;
     if (p > 92) preState.textContent = 'Unlocking';
     if (p >= 100){
       clearInterval(tick); clearInterval(spin);

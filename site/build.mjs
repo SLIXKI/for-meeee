@@ -1,6 +1,6 @@
 /* ASHEO static build: _shell.html + pages/* + _theatrics.html -> static site.
  *
- * Usage:  node site/build.mjs <out-dir>      (needs `marked`: npm i marked)
+ * Usage:  npm install && node site/build.mjs <out-dir>
  *
  * Root-hosted output (Netlify / Vercel / any static host): each route is a
  * real directory with an index.html, so /download, /docs etc. resolve with
@@ -10,11 +10,17 @@ import { readFileSync, writeFileSync, mkdirSync, cpSync, rmSync } from 'fs';
 import { join, dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
 
-let marked;
+let marked, transform;
 try {
   ({ marked } = await import('marked'));
 } catch {
-  console.error('missing dependency: run `npm i marked` in the repo root first.');
+  console.error('missing dependency: run `npm install` in the repo root first.');
+  process.exit(1);
+}
+try {
+  ({ transform } = await import('esbuild'));
+} catch {
+  console.error('missing dependency: run `npm install` in the repo root first.');
   process.exit(1);
 }
 
@@ -95,6 +101,16 @@ writeFileSync(join(OUT, '404.html'), assemble(
 ));
 
 cpSync(join(SITE, 'assets'), join(OUT, 'assets'), { recursive: true });
+// Production squeeze: esbuild minifies the stylesheet and every shipped script.
+// Same behavior the smoke test verifies — smaller bytes, never different code.
+{
+  const cssPath = join(OUT, 'assets', 'app.css');
+  writeFileSync(cssPath, (await transform(readFileSync(cssPath, 'utf8'), { loader:'css', minify:true })).code);
+  for (const f of ['app.js','page.js','dither-bg.js','download.js','status.js','changelog.js','tutorials.js']){
+    const p = join(OUT, 'assets', f);
+    writeFileSync(p, (await transform(readFileSync(p, 'utf8'), { loader:'js', minify:true })).code);
+  }
+}
 writeFileSync(join(OUT, 'netlify.toml'), `# Served as-is (manual deploy / Netlify Drop). Pretty URLs come free:
 # each route is a real directory with an index.html, so no redirects needed.
 [[headers]]

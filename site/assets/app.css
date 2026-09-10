@@ -444,7 +444,11 @@ dither-bg{display:block;width:100%;height:100%}
 .dev-ash-grid{position:relative;z-index:2;display:grid;grid-template-columns:.92fr 1.08fr;gap:36px;margin:36px auto 0;padding:0 36px 66px;max-width:1260px;align-items:start;perspective:1300px}
 @media(max-width:980px){.dev-ash-grid{grid-template-columns:1fr;padding:0 20px 42px}}
 .dev-ash-left{display:grid;gap:16px;align-content:start}
-.dev-card{padding:28px;border:1px solid rgba(255,255,255,.07);border-radius:22px;backdrop-filter:blur(9px);transform-style:preserve-3d;
+/* No backdrop-filter on this card: it is the only filtered surface inside the
+   scroll-skewed content, and re-blurring it on every skew frame shimmered while
+   scrolling. The backdrop here is near-black gradients, so the static frosted
+   background below renders identically. */
+.dev-card{padding:28px;border:1px solid rgba(255,255,255,.07);border-radius:22px;transform-style:preserve-3d;
   background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.014));
   box-shadow:0 34px 72px rgba(0,0,0,.58),0 0 44px rgba(201,168,106,.08),inset 0 1px 0 rgba(255,255,255,.07)}
 .dev-name{font-size:21px;font-weight:800;letter-spacing:-.02em}
@@ -475,7 +479,10 @@ dither-bg{display:block;width:100%;height:100%}
 .dev-ash-right::before{content:"";position:absolute;inset:-22%;z-index:0;pointer-events:none;filter:blur(20px);
   background:radial-gradient(540px 390px at 50% 38%,rgba(201,168,106,.17),transparent 68%)}
 .dev-ash-right dither-bg{position:absolute;inset:0;width:100%;height:100%;background:#000}
-#dither-dev canvas{image-rendering:pixelated}
+/* No image-rendering:pixelated here: under fractional transforms (scroll skew,
+   the card's endless float) pixelated resampling snaps every frame and the dots
+   visibly shimmer. The buffer already matches CSS pixels 1:1, so smooth sampling
+   is identical when still and calm in motion. */
 @keyframes floatAsh{50%{transform:translateY(-9px)}}
 @media(max-width:980px){.dev-ash-right{max-width:100%}}
 
