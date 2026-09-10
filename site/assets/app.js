@@ -218,9 +218,10 @@ addEventListener('scroll', () => { glActive = performance.now(); }, { passive:tr
 /* ═══ SCROLL VELOCITY (native scroll, never hijacked) ═══ */
 const skewer = document.getElementById('skewer');
 let skewIdle = false;
-let vel = 0, lastY = scrollY;
+let vel = 0, lastY = scrollY, lastScrollAt = 0;
 addEventListener('scroll', () => {
   const y = scrollY;
+  lastScrollAt = performance.now();
   vel = vel * .6 + (y - lastY) * .4;   // smoothed, for the skew and the ring
   lastY = y;
 }, { passive: true });                 // passive: never blocks the compositor
@@ -1448,6 +1449,9 @@ if (ditherEl){
   const w = ditherEl.closest('.dev-ash-right');
   const bp = parseFloat(ditherEl.getAttribute('pixel-size')) || 2.0;
   const bc = parseFloat(ditherEl.getAttribute('contrast')) || 1.24;
+  const bb = parseFloat(ditherEl.getAttribute('brightness')) || 0;
+  const bl = ditherEl.getAttribute('light') || '#f5f2eb';
+  ditherEl._ditherBase = { px:String(bp), co:String(bc), br:String(bb), li:bl };
 
   // Each setAttribute on <dither-bg> triggers attributeChangedCallback → a WebGL
   // redraw, so the old handler could force FOUR redraws per mousemove event, plus a
@@ -1462,10 +1466,13 @@ if (ditherEl){
     if (ditherEl.getAttribute(name) !== value) ditherEl.setAttribute(name, value);
   };
   const applyDither = (d) => {
-    setAttr('pixel-size', clamp(bp - (.55-d)*.55, 1.6, 2.6).toFixed(2));
+    ditherEl._ditherD = d;
+    // The lens breathes around the markup defaults instead of jamming to a
+    // fixed range — smooth at any authored pixel-size or brightness.
+    setAttr('pixel-size', clamp(bp - (.55-d)*.9, bp*.62, bp*1.25).toFixed(2));
     setAttr('contrast', (bc + (.5-d)*.12).toFixed(2));
-    setAttr('brightness', ((.5-d)*.04).toFixed(3));
-    setAttr('light', d < .32 ? '#fff4d6' : '#f5f2eb');
+    setAttr('brightness', (bb + (.5-d)*.04).toFixed(3));
+    setAttr('light', d < .32 ? '#fff4d6' : bl);
   };
   flushDither = () => {
     if (dPending === null) return;
@@ -1484,10 +1491,11 @@ if (ditherEl){
   w?.addEventListener('mouseleave', () => {
     ditherHovering = false;
     dPending = null;
+    ditherEl._ditherD = null;
     ditherEl.setAttribute('pixel-size', String(bp));
     ditherEl.setAttribute('contrast', String(bc));
-    ditherEl.setAttribute('brightness', '-0.01');
-    ditherEl.setAttribute('light', '#f5f2eb');
+    ditherEl.setAttribute('brightness', String(bb));
+    ditherEl.setAttribute('light', bl);
   });
 }
 
@@ -1497,9 +1505,19 @@ if (!reduce && ditherEl){
   watch(document.getElementById('architect'), v => { archVis = v; });
   (function blinkLoop(){
     setTimeout(() => {
-      if (archVis && !ditherHovering && !document.hidden){
+      // A blink is "unattended" ambiance: never while the pointer is over the
+      // portrait, and never within 2.5s of scrolling — mid-motion the dip
+      // reads as a glitch instead of a blink. The animation itself is kept.
+      if (archVis && !ditherHovering && !document.hidden && performance.now() - lastScrollAt > 2500){
         ditherEl.setAttribute('brightness', '-0.30');
-        setTimeout(() => { if (!ditherHovering) ditherEl.setAttribute('brightness', '-0.01'); }, 140);
+        setTimeout(() => {
+          const base = (ditherEl._ditherBase && ditherEl._ditherBase.br) || '-0.01';
+          const dd = ditherEl._ditherD;
+          // If the pointer landed mid-blink, hand ownership back to the hover
+          // lens at its current depth instead of stranding the dip value.
+          if (ditherHovering && dd != null) ditherEl.setAttribute('brightness', (parseFloat(base) + (.5-dd)*.04).toFixed(3));
+          else if (!ditherHovering) ditherEl.setAttribute('brightness', base);
+        }, 140);
       }
       blinkLoop();
     }, 5200 + Math.random()*4200);
