@@ -1,0 +1,29 @@
+<!-- title: Asheo — Changelog
+     description: Every published Asheo build, with its release note, size and SHA-256.
+     script: changelog -->
+<div class="wrap pg">
+
+  <p class="pg-eyebrow">Generated from the release index</p>
+  <h1 class="pg-title">Changelog</h1>
+  <p class="pg-lead">
+    Every build that has been published, newest first — with the checksum it was
+    published under, so an entry here is a claim you can verify rather than a note
+    someone typed.
+  </p>
+
+  <div id="clList">
+    <p class="pg-lead" id="clLoading">Loading the release index…</p>
+  </div>
+
+  <div class="pg-sec">
+    <h2>Verifying a build</h2>
+    <p class="pg-lead" style="margin-bottom:0">
+      Download it, then run <code data-copy="sha256sum asheo-latest.zip">sha256sum asheo-latest.zip</code>
+      and compare against the hash listed above. If they differ, the file is not what
+      was published — don't run it. Older builds stay listed for reference, but only
+      the current release is authorized to run: Asheo verifies its own signed file
+      manifest at startup, and a superseded build fails that check.
+    </p>
+  </div>
+
+</div>

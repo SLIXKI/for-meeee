@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{{TITLE}}</title>
+<meta name="description" content="{{DESCRIPTION}}" />
+<link rel="canonical" href="{{CANONICAL}}">
+<meta name="robots" content="index,follow">
+<meta name="author" content="Asheo">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Asheo">
+<meta property="og:title" content="{{TITLE}}">
+<meta property="og:description" content="{{DESCRIPTION}}">
+<meta property="og:url" content="{{CANONICAL}}">
+<meta property="og:image" content="https://asheobypasser.net{{OGIMAGE}}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{{TITLE}}">
+<meta name="twitter:description" content="{{DESCRIPTION}}">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Asheo",
+  "applicationCategory": "DeveloperApplication",
+  "applicationSubCategory": "Testing and QA tooling",
+  "operatingSystem": "Chrome 116+, Edge, Brave, Arc, Opera",
+  "description": "A developer and QA browser extension for testing payment-gateway integrations. Generates algorithmically valid test card numbers from a configured BIN specification and substitutes them into outbound payment requests, so engineers can exercise checkout flows across 40+ gateways without entering card data by hand.",
+  "audience": { "@type": "Audience", "audienceType": "Software developers and QA engineers" },
+  "url": "https://asheobypasser.net/",
+  "downloadUrl": "https://download.asheobypasser.net/",
+  "softwareVersion": "1.6.0",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+{{FONTS}}
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+<link rel="stylesheet" href="{{CSS_HREF}}">
+</head>
+<body class="{{BODYCLASS}}">
+{{THEATRICS}}
+<nav class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a href="{{HOME}}#top" class="nav-left" data-mag>
+      <span class="mono-mark"><img src="assets/img/asheo-mark.webp" width="37" height="37" alt="Asheo" decoding="async"></span>
+      <span class="logo-wordmark">ASHEO<span>®</span></span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <span class="nav-ind" id="navInd"></span>
+      <a href="{{HOME}}#kit">The Kit</a><a href="{{HOME}}#how">Method</a><a href="/docs">Docs</a><a href="/tutorials">Tutorials</a><a href="/premium">Premium</a>
+    </div>
+    <div class="nav-right">
+      <button class="icon-btn" id="sound" aria-label="Toggle sound" title="Sound">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 9v6h3l5 4V5L7 9H4z"/><path d="M17 9a5 5 0 0 1 0 6"/></svg>
+      </button>
+      <a href="{{HOME}}#download" class="nav-cta" data-mag>Acquire
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<div class="shell" id="top"><div class="skewer" id="skewer">
+{{BODY}}
+  <div class="wrap">
+    <footer>
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#top" style="display:flex;align-items:center;gap:10px">
+            <span class="mono-mark" style="width:31px;height:31px;border-radius:9px"><svg width="16" height="16" viewBox="0 0 100 100" fill="none"><path d="M22 74 L50 22 L78 74" stroke="#C9A86A" stroke-width="7" stroke-linecap="round"/><path d="M36 58 H64" stroke="#FFF3D6" stroke-width="7" stroke-linecap="round"/></svg></span>
+            <span style="font-weight:700;letter-spacing:.26em;font-size:14px">ASHEO</span>
+          </a>
+          <p>ASHEO — Made for the future. Custom payment gateways, BIN tools and integrity checks as a clean, private MV3 extension.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Product</h4><a href="{{HOME}}#kit">The Kit</a><a href="{{HOME}}#how">Method</a><a href="/premium">Premium</a><a href="https://download.asheobypasser.net/">Download</a></div>
+          <div class="footer-col"><h4>Learn</h4><a href="/docs">Docs</a><a href="/tutorials">Tutorials</a><a href="/changelog">Changelog</a><a href="/status">Status</a></div>
+          <div class="footer-col"><h4>Connect</h4><a href="https://t.me/moreash" target="_blank" rel="noopener">Telegram — @moreash</a><a href="https://t.me/AsheoPremiumBot" target="_blank" rel="noopener">Authorize your install</a></div>
+          <div class="footer-col"><h4>Legal</h4><a href="/privacy">Network &amp; privacy disclosure</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 ASHEO. All rights reserved.</span>
+        <span class="egg">Type <b>ASH</b> anywhere</span>
+        <span>Built OG. No tracking. No bloat.</span>
+      </div>
+      <div class="wm-stage"><div class="wm" id="wm"><span class="wm-face">ASHEO</span></div></div>
+    </footer>
+  </div>
+</div></div>
+
+{{DITHER}}
+{{SCRIPTS}}
+</body>
+</html>

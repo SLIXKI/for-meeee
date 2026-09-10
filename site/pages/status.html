@@ -1,0 +1,54 @@
+<!-- title: Asheo — Status
+     description: Live health of the Asheo licence server and the 3DS2 API.
+     script: status -->
+<div class="wrap pg">
+
+  <p class="pg-eyebrow">Live · refreshed every 30 seconds</p>
+  <h1 class="pg-title">Status</h1>
+  <p class="pg-lead">
+    Checked from your browser, not from a dashboard someone forgot to update — if
+    a row is green, that service answered <em>you</em> just now.
+  </p>
+
+  <div id="stRows">
+    <div class="st-row" data-svc="worker" data-url="https://asheo-license.asheo-server-ext.workers.dev/v1/health">
+      <span class="st-dot" aria-hidden="true"></span>
+      <span>
+        <span class="st-name">Licence &amp; update server</span>
+        <span class="st-sub">entitlement · campaign · rules · update feed · download counter</span>
+      </span>
+      <span class="st-state">checking</span>
+    </div>
+
+    <div class="st-row" data-svc="3ds2" data-url="https://asheobypasser.net/health">
+      <span class="st-dot" aria-hidden="true"></span>
+      <span>
+        <span class="st-name">3DS2 API</span>
+        <span class="st-sub">Stripe 3DS2 authentication relay</span>
+      </span>
+      <span class="st-state">checking</span>
+    </div>
+
+    <div class="st-row" data-svc="download" data-url="https://download.asheobypasser.net/releases.json">
+      <span class="st-dot" aria-hidden="true"></span>
+      <span>
+        <span class="st-name">Downloads</span>
+        <span class="st-sub">release index and build artifacts</span>
+      </span>
+      <span class="st-state">checking</span>
+    </div>
+  </div>
+
+  <div class="pg-sec">
+    <h2>If something is red</h2>
+    <p class="pg-lead" style="margin-bottom:0">
+      Asheo is built so a server outage doesn't stop you working. Card generation and
+      injection run entirely in your browser and need no network at all. A premium
+      install falls back to its cached entitlement, and the update check is advisory —
+      it never blocks anything. The one feature that genuinely needs the 3DS2 API is
+      Stripe 3DS2 handling. If a row stays red for more than a few minutes, ping
+      <a href="https://t.me/moreash" target="_blank" rel="noopener">@moreash</a>.
+    </p>
+  </div>
+
+</div>

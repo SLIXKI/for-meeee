@@ -1,0 +1,347 @@
+<!-- title: Asheo — Payment Gateway Testing Tool for Developers & QA
+     description: A developer and QA browser extension for testing payment-gateway integrations. Generates algorithmically valid test cards from a BIN spec and substitutes them into checkout requests across 40+ gateways — Stripe, Adyen, Braintree, Worldpay and more — so engineers can exercise payment flows without entering card data by hand.
+     bodyclass: locked
+     theatrics: yes
+     dither: yes -->
+  <div class="wrap">
+
+    <!-- ░░░ I · OVERTURE ░░░ -->
+    <section class="hero">
+      <div>
+        <div class="exhibit-tag">
+          <span class="exhibit-line"></span>
+          <span class="exhibit-txt" id="scramble" data-final="Exhibit I — Now on view • v1.6.0">Exhibit I — Now on view • v1.6.0</span>
+        </div>
+
+        <div class="h1-stage">
+          <h1 class="h1" id="h1">
+            <span class="ln" data-split>THE WAIT</span>
+            <span class="ln"><b data-split>IS </b><span class="x3d" data-extrude="OVER."><span class="x3d-face">OVER.</span></span></span>
+            <span class="ln"><em data-split>ASHEO is here.</em></span>
+          </h1>
+        </div>
+
+        <p class="hero-sub rv" style="transition-delay:.55s">
+A <strong>developer &amp; QA testing tool</strong> for payment integrations.<br>
+          Exercise any checkout flow without hand-entering card data.
+        </p>
+
+        <p class="hero-copy rv" style="transition-delay:.63s">
+          Asheo generates algorithmically valid test card numbers from a BIN specification you configure, then substitutes them into outbound payment requests so you can verify a gateway integration end to end. 40+ gateways, custom rule support and integrity-checked builds, in a 2 MB MV3 extension. Generation runs entirely in your browser — card data never leaves your machine.
+        </p>
+
+        <div class="hero-stats rv" style="transition-delay:.71s">
+          <div class="stat"><div class="flap" data-flap="40" data-suf="+"></div><div class="stat-label">Gateways supported</div></div>
+          <div class="stat"><div class="flap" data-flap="2" data-pre="&lt;" data-suf="MB"></div><div class="stat-label">Package size</div></div>
+          <div class="stat"><div class="flap" data-flap="100" data-suf="%"></div><div class="stat-label">Local card generation</div></div>
+        </div>
+      </div>
+
+      <!-- THE ARTIFACT -->
+      <div class="artifact-wrap rv" style="transition-delay:.78s">
+        <div class="artifact" id="artifact">
+          <div class="artifact-shadow"></div>
+          <div class="orbit" id="orbit"></div>
+          <div class="frame">
+            <span class="frame-spin"></span>
+            <div class="artifact-card">
+              <div class="artifact-glare"></div>
+
+              <div class="lid" id="lid" title="Open">
+                <div class="lid-in">
+                  <div style="display:flex;align-items:center;gap:12px">
+                    <div class="artifact-icon"><svg width="20" height="20" viewBox="0 0 100 100" fill="none"><path d="M22 74 L50 22 L78 74" stroke="#C9A86A" stroke-width="6" stroke-linecap="round"/><path d="M36 58 H64" stroke="#FFF3D6" stroke-width="6" stroke-linecap="round"/></svg></div>
+                    <div><div class="artifact-title">ASHEO</div><div class="artifact-meta">v1.6.0 • 2.0MB • MV3</div></div>
+                  </div>
+                  <span class="artifact-badge"><i></i>Live</span>
+                </div>
+                <div class="lid-hint"><i></i>Click to open the case</div>
+              </div>
+
+              <div class="artifact-body">
+                <div class="compat d1"><span><i></i>Chrome</span><span><i></i>Edge</span><span><i></i>Brave</span><span><i></i>Arc</span></div>
+                <button class="primary-cta d3" data-cta data-mag data-href="https://asheo-license.asheo-server-ext.workers.dev/v1/download">
+                  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                    <path d="M12 12L20.5 7A10 10 0 0 0 3.5 7Z" fill="#EA4335"/><path d="M12 12L3.5 7A10 10 0 0 0 12 22Z" fill="#34A853"/>
+                    <path d="M12 12L12 22A10 10 0 0 0 20.5 7Z" fill="#FBBC05"/><circle cx="12" cy="12" r="4.2" fill="#fff"/><circle cx="12" cy="12" r="3.3" fill="#4285F4"/>
+                  </svg>
+                  Download for Chrome — Free
+                </button>
+                <button class="secondary-cta d2" data-cta data-mag data-href="https://download.asheobypasser.net/">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/><path d="M4 21h16"/></svg>
+                  All builds &amp; checksums
+                </button>
+                <div class="artifact-foot d1"><span>Free core</span><span style="opacity:.3">—</span><span>Load unpacked</span><span style="opacity:.3">—</span><span>No account</span></div>
+                <div class="artifact-trust d1"><span><b data-dlcount>——</b> downloads served</span></div>
+                <div class="serialbar">Build serial <span data-serial>——</span></div>
+              </div>
+            </div>
+          </div>
+          <span class="drag-hint">Drag to rotate · click the lid to open</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ░░░ KINETIC RING ░░░ -->
+  <div class="ring-band rv"><div class="ring" id="ring"></div></div>
+
+  <div class="wrap">
+    <div class="ledgerbar rv">
+      <span>Asheo® — Custom gateways, BIN tools &amp; integrity checks</span>
+      <span style="opacity:.35">·</span>
+      <span style="text-align:right">Chromium MV3 · Made for the future · No tracking, ever.</span>
+    </div>
+
+    <!-- ░░░ II · THE KIT ░░░ -->
+    <section class="sec-pad" id="kit">
+      <div class="rv">
+        <div class="sec-eyebrow">The Kit <span class="sec-num">— Exhibit II</span></div>
+        <h2 class="sec-h2">Everything you need.<br><b>Nothing</b> <i>you don't.</i></h2>
+        <p class="sec-lede">Four pillars, obsessively crafted — not forty half-finished features.</p>
+      </div>
+
+      <div class="orb-stage rv" id="orbStage">
+        <div class="orb" id="orb">
+          <article class="orb-card">
+            <div class="orb-num">01 — PERFORMANCE</div>
+            <div class="orb-icon"><svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 3L4 14h6l-1 7 9-11h-6l1-7z"/></svg></div>
+            <h3>Lightning Fast</h3>
+            <p>Sub-millisecond execution inside two megabytes. Nothing idles, nothing polls, nothing waits on a server. Your tabs never feel it — you do.</p>
+            <span class="orb-tag">&lt;2MB · MV3 · Instant</span>
+          </article>
+          <article class="orb-card">
+            <div class="orb-num">02 — PRIVACY</div>
+            <div class="orb-icon"><svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l7 3v5c0 4.2-3 7.3-7 8-4-.7-7-3.8-7-8V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+            <h3>Privacy First</h3>
+            <p>Local-only by architecture, not by promise. No trackers, no analytics, no account wall. Your data never leaves the device that made it.</p>
+            <span class="orb-tag">Zero telemetry</span>
+          </article>
+          <article class="orb-card">
+            <div class="orb-num">03 — COMPATIBILITY</div>
+            <div class="orb-icon"><svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/><path d="M2 12h2M20 12h2M12 2v2M12 20v2"/></svg></div>
+            <h3>Works Everywhere</h3>
+            <p>Chrome, Edge, Brave, Arc, Opera. One install, every Chromium engine, fully synced — and no separate builds to keep straight.</p>
+            <span class="orb-tag">5 engines</span>
+          </article>
+          <article class="orb-card">
+            <div class="orb-num">04 — CRAFT</div>
+            <div class="orb-icon"><svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l2.5 5.1L20 9l-4 4 1 5.8L12 16l-5 2.8 1-5.8L4 9l5.5-.9L12 3z"/></svg></div>
+            <h3>OG Design</h3>
+            <p>Pure dark, obsessively spaced, keyboard-first. Every shortcut sits where your hand already is. An interface as sharp as it feels.</p>
+            <span class="orb-tag">Keyboard-native</span>
+          </article>
+        </div>
+      </div>
+      <div class="orb-ctrl rv">
+        <button class="orb-btn" id="orbPrev" aria-label="Previous"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <div class="orb-dots" id="orbDots"></div>
+        <button class="orb-btn" id="orbNext" aria-label="Next"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+
+      <div class="quote-wrap rv">
+        <div class="quote-text">“Faster. Cleaner.<br><i>Unstoppable.</i>”</div>
+        <div class="quote-side">
+          <p>We removed everything that slows you down. What remains is pure signal — payment rules that actually route, BINs that actually generate, protection that actually protects.</p>
+          <div class="quote-attr">
+            <span class="mono-mark" style="width:31px;height:31px;border-radius:9px"><svg width="15" height="15" viewBox="0 0 100 100" fill="none"><path d="M22 74 L50 22 L78 74" stroke="#C9A86A" stroke-width="7" stroke-linecap="round"/><path d="M36 58 H64" stroke="#FFF3D6" stroke-width="7" stroke-linecap="round"/></svg></span>
+            <div><strong>Asheo Team</strong><br><em>Engineering · 2026</em></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░░ III · METHOD ░░░ -->
+    <section class="sec-pad" id="how">
+      <div class="rv">
+        <div class="sec-eyebrow">The Method <span class="sec-num">— Exhibit III</span></div>
+        <h2 class="sec-h2">Three steps.<br><i>Twenty seconds.</i></h2>
+      </div>
+
+      <div class="method">
+        <svg class="method-svg" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+          <path id="methodPath" d="M120,40 C300,140 420,-40 600,40 C780,120 900,-30 1080,40"
+            fill="none" stroke="url(#mg)" stroke-width="1.4" stroke-linecap="round"/>
+          <defs><linearGradient id="mg" x1="0" x2="1">
+            <stop offset="0" stop-color="#6B5731"/><stop offset=".5" stop-color="#C9A86A"/><stop offset="1" stop-color="#FFF3D6"/>
+          </linearGradient></defs>
+        </svg>
+        <div class="method-grid">
+          <div class="step rv"><div class="step-no">01</div><h3>Download</h3><p>Hit the button. No sign-up, no email wall, no credit card. Just the file.</p></div>
+          <div class="step rv" style="transition-delay:.11s"><div class="step-no">02</div><h3>Add to Browser</h3><p>Unzip it, open <code>chrome://extensions</code>, switch on Developer mode and hit <b>Load unpacked</b>. Asheo pins to your toolbar.</p></div>
+          <div class="step rv" style="transition-delay:.22s"><div class="step-no">03</div><h3>Go OG</h3><p>Open any tab. Feel the difference instantly. That is the whole onboarding.</p></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ░░░ IV · THE LEDGER ░░░ -->
+  <section class="ledger" id="ledger">
+    <div class="ledger-grain"></div>
+    <div class="gold-leaf" id="goldLeaf"></div>
+    <div class="wrap ledger-in">
+      <div class="rv">
+        <div class="ledger-eyebrow">The Ledger — Exhibit IV</div>
+        <h2 class="ledger-h2">Every claim,<br><i>on the record.</i></h2>
+        <p class="ledger-lede">No marketing fog. These are the actual numbers behind the build, printed like a spec sheet — because that is exactly what they are.</p>
+        <div class="spec">
+          <div class="spec-row"><span>Version</span><span>1.6.0 — Edition 01</span></div>
+          <div class="spec-row"><span>Manifest</span><span>Chromium MV3</span></div>
+          <div class="spec-row"><span>Package size</span><span>2.0 MB</span></div>
+          <div class="spec-row"><span>Network calls</span><span>License + update checks only</span></div>
+          <div class="spec-row"><span>Trackers / analytics</span><span>No third-party trackers</span></div>
+          <div class="spec-row"><span>Account required</span><span>No — premium needs a key</span></div>
+          <div class="spec-row"><span>Storage</span><span>Local device (chrome.storage.local)</span></div>
+          <div class="spec-row"><span>Supported engines</span><span>Chrome 116+ · Edge · Brave · Arc · Opera</span></div>
+          <div class="spec-row"><span>Price</span><span>Free core · Premium optional</span></div>
+        </div>
+      </div>
+
+      <div class="cert rv" style="transition-delay:.12s">
+        <div class="cert-head">Certificate of Authenticity</div>
+        <div class="cert-title">ASHEO <i>Edition 01</i></div>
+        <div class="cert-rule"></div>
+        <p class="cert-body">This build was assembled, broken and rebuilt by hand. It carries no third-party payload and no obligation. It talks to its own licence and update server, and nothing else — see the <a href="/privacy" style="color:inherit;text-decoration:underline">disclosure</a>.</p>
+
+        <div class="coin-stage">
+          <div class="coin" id="coin">
+            <div class="coin-face front">
+              <div style="display:grid;place-items:center;gap:4px">
+                <svg width="74" height="74" viewBox="0 0 100 100" fill="none"><path d="M24 74 L50 24 L76 74" stroke="#584618" stroke-width="7" stroke-linecap="round"/><path d="M37 57 H63" stroke="#87713F" stroke-width="7" stroke-linecap="round"/></svg>
+                <div class="coin-txt">Asheo<br>Edition 01</div>
+              </div>
+              <div class="coin-shine"></div>
+            </div>
+            <div class="coin-face back">
+              <div class="coin-txt">Certified<br>Build-Signed<br>1.6.0</div>
+              <div class="coin-shine"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stamp-zone" id="stampZone">
+          <button class="stamp-btn" id="stampBtn">Press to seal your copy</button>
+          <span class="wax-shock" id="waxShock"></span>
+          <svg class="wax" id="wax" viewBox="0 0 120 120">
+            <defs>
+              <radialGradient id="waxg" cx="35%" cy="28%">
+                <stop offset="0" stop-color="#C4544A"/><stop offset="55%" stop-color="#96322C"/><stop offset="100%" stop-color="#5E1C18"/>
+              </radialGradient>
+            </defs>
+            <path d="M60 4c14 6 24-4 34 8s2 24 8 34-14 20-14 34-16 14-28 14-22 6-32-4-6-22-14-32S4 40 14 30 34 24 44 14 46-2 60 4z" fill="url(#waxg)"/>
+            <circle cx="60" cy="62" r="34" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/>
+            <path d="M44 78 L60 42 L76 78" stroke="rgba(255,235,225,.85)" stroke-width="5" stroke-linecap="round" fill="none"/>
+            <path d="M52 66 H68" stroke="rgba(255,235,225,.85)" stroke-width="5" stroke-linecap="round"/>
+          </svg>
+          <span class="stamped-note" id="stampNote">Sealed · <b data-serial>——</b></span>
+        </div>
+
+        <div class="cert-foot">
+          <div>Serial<div class="cert-sign" data-serial style="font-size:15px">——</div></div>
+          <div style="text-align:right">Signed<div class="cert-sign">Ash</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <!-- ░░░ V · ACCESS ░░░ -->
+    <section class="final rv" id="download">
+      <div class="corridor" id="corridor" aria-hidden="true"></div>
+      <div>
+        <div class="sec-eyebrow">Access <span class="sec-num">— Exhibit V</span></div>
+        <h2 class="final-h2">Ready to<br><i>go OG?</i></h2>
+        <p class="final-lede">Free forever. Two megabytes. Zero excuses left. The extension the top 1% already use — now it's your turn.</p>
+        <p class="mono" style="margin-top:17px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--paper-mute)">Asheo v1.6.0 • Chromium MV3 • Direct .zip — not on the Chrome Web Store</p>
+      </div>
+      <div class="artifact-wrap" style="padding:0">
+        <div class="artifact" id="artifact2">
+          <div class="artifact-shadow"></div>
+          <div class="frame">
+            <span class="frame-spin"></span>
+            <div class="artifact-card">
+              <div class="artifact-glare"></div>
+              <div class="lid" style="cursor:default">
+                <div class="lid-in">
+                  <div style="display:flex;align-items:center;gap:12px">
+                    <div class="artifact-icon"><svg width="20" height="20" viewBox="0 0 100 100" fill="none"><path d="M22 74 L50 22 L78 74" stroke="#C9A86A" stroke-width="6" stroke-linecap="round"/><path d="M36 58 H64" stroke="#FFF3D6" stroke-width="6" stroke-linecap="round"/></svg></div>
+                    <div><div class="artifact-title">ASHEO</div><div class="artifact-meta">v1.6.0 • 2.0MB • MV3</div></div>
+                  </div>
+                  <span class="artifact-badge"><i></i>Live</span>
+                </div>
+              </div>
+              <div class="artifact-body">
+                <div class="compat d1"><span><i></i>Chrome</span><span><i></i>Edge</span><span><i></i>Brave</span><span><i></i>Arc</span></div>
+                <button class="primary-cta d3" data-cta data-mag data-href="https://asheo-license.asheo-server-ext.workers.dev/v1/download">
+                  <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 12L20.5 7A10 10 0 0 0 3.5 7Z" fill="#EA4335"/><path d="M12 12L3.5 7A10 10 0 0 0 12 22Z" fill="#34A853"/><path d="M12 12L12 22A10 10 0 0 0 20.5 7Z" fill="#FBBC05"/><circle cx="12" cy="12" r="4.2" fill="#fff"/><circle cx="12" cy="12" r="3.3" fill="#4285F4"/></svg>
+                  Download for Chrome — Free
+                </button>
+                <button class="secondary-cta d2" data-cta data-mag data-href="https://download.asheobypasser.net/">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/><path d="M4 21h16"/></svg>
+                  All builds &amp; checksums
+                </button>
+                <div class="artifact-foot d1"><span>Free core</span><span style="opacity:.3">—</span><span>Load unpacked</span><span style="opacity:.3">—</span><span>No account</span></div>
+                <div class="serialbar">Build serial <span data-serial>——</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ░░░ VI · ARCHITECT — dither preserved ░░░ -->
+  <section class="dev-arch rv" id="architect" aria-label="ASH — The Architect">
+    <div class="dev-arch-head">
+      <div class="dev-arch-kicker"><span></span> The Architect — ASH · Exhibit VI</div>
+      <h2 class="dev-arch-title">Built by <i>ASH.</i><br>Obsessed beyond reason.</h2>
+      <p class="dev-arch-sub">No team. No funding. No shortcuts. Just ASH, who refused to ship mediocrity.</p>
+    </div>
+
+    <div class="dev-ash-grid">
+      <div class="dev-ash-left">
+        <div class="dev-card">
+          <h3 class="dev-name">ASH</h3>
+          <p class="dev-role">Solo Builder • Architect of ASHEO • MV3 Engineer</p>
+          <div class="dev-stats">
+            <div><b>40k+</b><span>Early adopters</span></div>
+            <div><b>1.6.0</b><span>Shipped</span></div>
+            <div><b>&lt;2MB</b><span>Zero bloat</span></div>
+          </div>
+          <p class="dev-bio">ASH hand-tuned every gateway, every fallback, every pixel. If ASHEO feels effortless, it's because the hard part was obsessed over for months. This isn't a side project — it's ASH's craft.</p>
+          <div class="dev-actions">
+            <a href="#download" class="dev-btn" data-mag>Get ASHEO — Free</a>
+            <a href="https://t.me/moreash" class="dev-btn dev-btn--ghost" data-mag target="_blank" rel="noopener">Message ASH</a>
+          </div>
+        </div>
+
+        <div class="dev-boasts">
+          <article class="boast"><span class="boast-num">01</span><h4>Built solo, not outsourced</h4><p>Every line, every bypass, every edge case — written, broken and fixed by ASH alone.</p></article>
+          <article class="boast"><span class="boast-num">02</span><h4>Privacy is the foundation</h4><p>No third-party trackers or analytics. Generated cards, BINs and intercepted request bodies never leave your device — only an install id and, if you buy premium, a licence key.</p></article>
+          <article class="boast"><span class="boast-num">03</span><h4>2MB that hits harder than 200MB</h4><p>Sub-millisecond execution, under two megabytes. ASH made it feel instant.</p></article>
+          <article class="boast"><span class="boast-num">04</span><h4>For the ones who ship</h4><p>Not for everyone. Built for the people who test, break and stay early.</p></article>
+          <div class="dev-quote">
+            <p>“Not just an extension. It's your edge — so I built it like one.”</p>
+            <span>— ASH, Architect of ASHEO</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="dev-ash-right">
+        <dither-bg id="dither-dev"
+          src="assets/img/dev-cutout.webp"
+          pixel-size="2.0"
+          levels="4"
+          spread="0.68"
+          brightness="-0.01"
+          contrast="1.24"
+          monochrome="1"
+          invert="0"
+          dark="#050508"
+          light="#f5f2eb"
+          wobble="0.06"
+          speed="0.4"
+        ></dither-bg>
+      </div>
+    </div>
+  </section>

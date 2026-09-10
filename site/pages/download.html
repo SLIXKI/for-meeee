@@ -1,0 +1,71 @@
+<!-- title: Download Asheo
+     description: Download the current Asheo build as a .zip, with its published SHA-256 so you can verify exactly what you got.
+     script: download -->
+<div class="wrap dl-wrap">
+
+  <p class="dl-eyebrow">Direct distribution · not on the Chrome Web Store</p>
+  <h1 class="dl-title">Download Asheo</h1>
+  <p class="dl-lead">
+    A developer and QA tool for testing payment-gateway integrations. Grab the
+    .zip and load it unpacked — every build is listed with its SHA-256, so you can
+    verify the bytes you received are the bytes that were published.
+  </p>
+
+  <div class="dl-card" id="dlCard">
+    <div class="dl-head">
+      <img class="dl-mark" src="assets/img/asheo-mark.webp" width="44" height="44" alt="" decoding="async">
+      <span class="dl-ver" id="dlVer">Asheo</span>
+      <span class="dl-badge">Chrome 116+</span>
+    </div>
+
+    <button class="dl-btn" id="dlBtn" data-cta data-mag data-href="https://asheo-license.asheo-server-ext.workers.dev/v1/download">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M12 4v12M6 12l6 6 6-6"/><path d="M4 21h16"/>
+      </svg>
+      Download .zip
+    </button>
+
+    <div class="dl-meta">
+      <b id="dlSize">—</b><span style="opacity:.35">·</span>
+      <span id="dlDate">—</span><span style="opacity:.35">·</span>
+      <span id="dlCount">—</span>
+    </div>
+
+    <div class="dl-sum">
+      <div class="dl-sum-row">
+        <span>sha-256</span>
+        <span class="dl-hash" id="dlHash" data-copy="">loading…</span>
+      </div>
+      <div class="dl-sum-row">
+        <span>verify</span>
+        <span><code data-copy="sha256sum asheo-latest.zip">sha256sum asheo-latest.zip</code></span>
+      </div>
+      <div class="dl-sum-row">
+        <span>direct</span>
+        <span><a class="dl-hash" id="dlDirect" href="https://download.asheobypasser.net/asheo-latest.zip">asheo-latest.zip</a></span>
+      </div>
+      <p class="dl-note" id="dlNote"></p>
+    </div>
+  </div>
+
+  <div class="dl-steps">
+    <h2>Install</h2>
+    <ol>
+      <li>Unzip it into a folder you intend to keep — Chrome loads the extension from that folder, so deleting it uninstalls Asheo.</li>
+      <li>Open <code data-copy="chrome://extensions">chrome://extensions</code></li>
+      <li>Turn on <b>Developer mode</b> (top right).</li>
+      <li>Click <b>Load unpacked</b> and select the unzipped folder.</li>
+    </ol>
+    <h2 style="margin-top:26px">Updating</h2>
+    <ol>
+      <li>Download the new .zip and unzip it over the same folder.</li>
+      <li>Back on <code data-copy="chrome://extensions">chrome://extensions</code>, press <b>Reload</b> on the Asheo card.</li>
+    </ol>
+  </div>
+
+  <details class="dl-prev" id="dlPrev">
+    <summary>Previous builds (<span id="dlPrevCount">0</span>)</summary>
+    <table><tbody id="dlPrevBody"></tbody></table>
+  </details>
+
+</div>
