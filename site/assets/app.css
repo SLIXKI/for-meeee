@@ -953,3 +953,7 @@ html,body{overscroll-behavior-x:none}
   .mmenu,.palette-backdrop{background:rgba(5,5,7,.97)}
 }
 .sub #sound{display:none} /* subpages ship page.js, which has no audio engine — no dead controls */
+/* ECO TIER (software WebGL): the frosted bars keep their look with a smaller
+   blur + stronger tint, so per-frame backdrop re-blurs cost a fraction. */
+.eco .nav.scrolled{background:rgba(5,5,7,.84);backdrop-filter:blur(10px) saturate(130%);-webkit-backdrop-filter:blur(10px) saturate(130%)}
+.eco .plate{background:rgba(8,8,10,.88)}

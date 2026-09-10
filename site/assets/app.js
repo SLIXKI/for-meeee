@@ -69,7 +69,7 @@ document.querySelectorAll('[data-extrude]').forEach(el => {
 
 /* ═══ WEBGL · LIQUID GOLD SHADER ═══ */
 const glCanvas = document.getElementById('gl');
-let glOK = false, glDraw = null, glCovered = false, lastGLDraw = 0;
+let glOK = false, glDraw = null, glCovered = false, lastGLDraw = 0, swGL = false;
 let glActive = performance.now(), glShown = false;
 let glMood = 0, glMoodTarget = 0;
 const GL_MOODS = { top:0, kit:.22, how:.4, ledger:.55, download:.45, architect:1 };
@@ -84,6 +84,20 @@ addEventListener('scroll', () => { glActive = performance.now(); }, { passive:tr
   if (lowPower || reduce) { document.documentElement.classList.add('no-gl'); return; }
   const gl = glCanvas.getContext('webgl', { antialias:false, alpha:false, depth:false, stencil:false, powerPreference:'high-performance' });
   if (!gl) { document.documentElement.classList.add('no-gl'); return; }
+  // Software rasterizers (SwiftShader, llvmpipe, RDP sessions, "hardware
+  // acceleration" off) run this shader on the CPU — full rate would pin a
+  // core. Detect once, then the governor and the backing store below adapt.
+  // Same animation, thumbnail raster. Nothing visual is removed.
+  try {
+    const dbg = gl.getExtension('WEBGL_debug_renderer_info');
+    const renderer = dbg ? String(gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) || '') : '';
+    swGL = /swiftshader|llvmpipe|softpipe|software rasterizer|basic render/i.test(renderer);
+  } catch(e){ swGL = false; }
+  try { window.__asheoRenderTier = swGL ? 'eco (software GL)' : 'full'; } catch(e){}
+  if (swGL){
+    document.documentElement.classList.add('eco');
+    if (window.console) console.info('[asheo] software WebGL detected — eco motion engaged.');
+  }
 
   const VS = `attribute vec2 p; void main(){ gl_Position = vec4(p,0.,1.); }`;
   let FS = `precision highp float;
@@ -176,6 +190,7 @@ addEventListener('scroll', () => { glActive = performance.now(); }, { passive:tr
     // Pixel budget: the silk is smooth gradients under upscale, so backing
     // resolution barely matters — cap it at ~420k pixels and .5 scale.
     SCALE = Math.min(0.5, Math.sqrt(420000 / Math.max(innerWidth*innerHeight, 1)));
+    if (swGL) SCALE = Math.min(SCALE, 480/Math.max(innerWidth, 1), 480/Math.max(innerHeight, 1));
     const w = Math.max(1, Math.round(innerWidth*SCALE)), h = Math.max(1, Math.round(innerHeight*SCALE));
     if (glCanvas.width !== w || glCanvas.height !== h){
       glCanvas.width = w; glCanvas.height = h;
@@ -323,9 +338,10 @@ function loop(now){
   // Frame governor: the silk drifts far too slowly for 60fps to be
   // distinguishable, so it never renders above 30fps; after 5s without input
   // it eases to 12fps — film-grain territory, the boil just gets cinematic.
-  // Same pixels, a fraction of the GPU.
+  // Same pixels, a fraction of the GPU. Software rasterizers drop to a 10fps
+  // thumbnail tier instead — still alive, roughly 1/50th the CPU.
   if (glOK && !glCovered){
-    const glBudget = now - glActive <= 5000 ? 33.4 : 83.4;
+    const glBudget = swGL ? 100 : (now - glActive <= 5000 ? 33.4 : 83.4);
     if (now - lastGLDraw >= glBudget){
       lastGLDraw = now;
       glDraw(t, mouseX, mouseY, (scrollY/Math.max(1,document.body.scrollHeight-innerHeight)));

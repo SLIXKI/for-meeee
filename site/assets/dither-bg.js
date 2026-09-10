@@ -96,7 +96,7 @@ class DitherBG extends HTMLElement {
     this._resizeTimer = 0;
     this._lastW = 0; this._lastH = 0;
     this._lost = false;
-    this._t0 = 0; this._lastDraw = -Infinity;
+    this._t0 = 0; this._lastDraw = -Infinity; this._eco = false;
     this._boundSync = () => this._sync();
     this._boundResize = () => this._scheduleResize();
     this._boundLost = (e) => { e.preventDefault(); this._lost = true; this._tex = null; this._stop(); };
@@ -104,7 +104,8 @@ class DitherBG extends HTMLElement {
     this._tick = (t) => {
       if (!this._running) return;
       this._raf = requestAnimationFrame(this._tick);
-      if (t - this._lastDraw < 1000/30) return;   // keep the loop, skip the draw
+      const frameMs = this._eco ? 100 : 1000/30;
+      if (t - this._lastDraw < frameMs) return;   // keep the loop, skip the draw
       this._lastDraw = t;
       this._draw((t - this._t0)/1000 * this._num('speed', 1));
     };
@@ -149,6 +150,11 @@ class DitherBG extends HTMLElement {
     const gl = this._canvas.getContext('webgl', { antialias:false, alpha:false, depth:false, stencil:false, powerPreference:'low-power' });
     if (!gl){ this._fallback(); return; }
     this._gl = gl;
+    try {
+      const dbg = gl.getExtension('WEBGL_debug_renderer_info');
+      const renderer = dbg ? String(gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) || '') : '';
+      this._eco = /swiftshader|llvmpipe|softpipe|software rasterizer|basic render/i.test(renderer);
+    } catch(e){ this._eco = false; }
     try { this._build(); } catch(e){ this._fallback(); return; }
     this._canvas.addEventListener('webglcontextlost', this._boundLost);
     this._canvas.addEventListener('webglcontextrestored', this._boundRestored);

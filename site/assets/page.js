@@ -63,5 +63,19 @@
     }).catch(() => {});
   });
 
+  /* eco tier for subpages: same software-GL probe as the landing page, on a
+     throwaway context that is released immediately after asking. */
+  try {
+    const probe = document.createElement('canvas').getContext('webgl');
+    if (probe) {
+      const dbg = probe.getExtension('WEBGL_debug_renderer_info');
+      const renderer = dbg ? String(probe.getParameter(dbg.UNMASKED_RENDERER_WEBGL) || '') : '';
+      if (/swiftshader|llvmpipe|softpipe|software rasterizer|basic render/i.test(renderer))
+        document.documentElement.classList.add('eco');
+      const lose = probe.getExtension('WEBGL_lose_context');
+      if (lose) lose.loseContext();
+    }
+  } catch (e) {}
+
   document.body.classList.add('ready');
 })();
