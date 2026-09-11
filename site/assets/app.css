@@ -231,9 +231,14 @@ button.lid{display:block;width:100%;text-align:left;font:inherit;color:inherit}
 .primary-cta::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .4s;
   background:radial-gradient(120px 120px at var(--bx,50%) var(--by,50%),var(--brass-hi),var(--brass) 60%,transparent 75%)}
 .primary-cta:hover::before{opacity:1}
-.primary-cta::after{content:"";position:absolute;top:0;bottom:0;width:44%;left:-60%;transform:skewX(-18deg);z-index:-1;
+.primary-cta::after{content:"";position:absolute;top:0;bottom:0;width:44%;left:0;transform:translateX(-136.36%) skewX(-18deg);z-index:-1;
   background:linear-gradient(100deg,transparent,rgba(255,255,255,.92),transparent);animation:sweep 4.8s ease-in-out infinite}
-@keyframes sweep{0%,72%{left:-60%}100%{left:135%}}
+/* The sheen travels on the compositor (translateX % of the 44%-wide strip maps
+   exactly onto the old left:-60% → 135% path: -60/44 = -136.36%, 135/44 =
+   306.82%). Animating `left` instead forced a layout + display-list rebuild on
+   every frame — Firefox profiles showed it keeping the RefreshDriver in a
+   full paint loop. Same pixels, no layout. */
+@keyframes sweep{0%,72%{transform:translateX(-136.36%) skewX(-18deg)}100%{transform:translateX(306.82%) skewX(-18deg)}}
 .primary-cta:hover{transform:translateY(-2px) scale(1.017);box-shadow:0 28px 54px -14px rgba(245,242,235,.78)}
 .primary-cta:active{transform:scale(.985)}
 .ripple{position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,255,255,.55);

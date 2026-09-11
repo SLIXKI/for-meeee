@@ -240,6 +240,14 @@ addEventListener('scroll', () => {
   vel = vel * .6 + (y - lastY) * .4;   // smoothed, for the skew and the ring
   lastY = y;
 }, { passive: true });                 // passive: never blocks the compositor
+// Scrollable height, cached: reading body.scrollHeight inside the frame loop
+// forces a synchronous layout whenever anything dirtied it mid-frame. It only
+// changes when content or the viewport does, so paintScroll() (scroll frames)
+// and the resize listener below keep it fresh instead.
+let scrollMax = 1;
+addEventListener('resize', () => {
+  scrollMax = Math.max(1, document.body.scrollHeight - innerHeight);
+}, { passive: true });
 // Anchor links keep the curtain wipe, but the jump itself is native.
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
@@ -344,7 +352,7 @@ function loop(now){
     const glBudget = swGL ? 100 : (now - glActive <= 5000 ? 33.4 : 83.4);
     if (now - lastGLDraw >= glBudget){
       lastGLDraw = now;
-      glDraw(t, mouseX, mouseY, (scrollY/Math.max(1,document.body.scrollHeight-innerHeight)));
+      glDraw(t, mouseX, mouseY, (scrollY/scrollMax));
     }
   }
   if (mouseDirty){
@@ -897,10 +905,20 @@ const toTop = document.getElementById('toTop');
 const methodPath = document.getElementById('methodPath');
 let pathLen = 0;
 if (methodPath){ pathLen = methodPath.getTotalLength(); methodPath.style.strokeDasharray = pathLen; methodPath.style.strokeDashoffset = pathLen; }
+let scrollJob = false;
 function onScroll(){
+  // Scroll events can fire several times per frame; coalesce the whole handler
+  // (style writes + layout reads) into one rAF — Firefox profiles showed the
+  // direct handler restyling the document hundreds of times per scroll.
+  if (scrollJob) return;
+  scrollJob = true;
+  requestAnimationFrame(() => { scrollJob = false; paintScroll(); });
+}
+function paintScroll(){
   nav.classList.toggle('scrolled', scrollY > 12);
-  const h = document.body.scrollHeight - innerHeight;
-  const k = h > 0 ? scrollY/h : 0;
+  scrollMax = Math.max(1, document.body.scrollHeight - innerHeight);
+  const h = scrollMax;
+  const k = scrollY/h;
   // Scoped to the progress bar: it is the only thing reading --sp, and on :root the
   // write invalidated style across the document.
   const pr = progEl || (progEl = document.querySelector('.prog'));
@@ -916,7 +934,7 @@ function onScroll(){
     methodPath.style.strokeDashoffset = pathLen*(1-m);
   }
 }
-addEventListener('scroll', onScroll, {passive:true}); onScroll();
+addEventListener('scroll', onScroll, {passive:true}); paintScroll();
 if (toTop) toTop.addEventListener('click', () => {
   window.scrollTo({ top:0, behavior: reduce ? 'auto' : 'smooth' });
 });
